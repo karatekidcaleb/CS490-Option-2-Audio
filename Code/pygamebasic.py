@@ -25,21 +25,28 @@ def main():
     screen_height = 480
     # create a surface on screen that has the size of 240 x 240
     screen = pygame.display.set_mode((screen_width,screen_height))
-    image = pygame.image.load("logo32x32.png")
+    image = [pygame.image.load("logo32x32.png"), pygame.image.load("logo32x32.png")]
+    font = pygame.font.SysFont("monospace", 20)
+    label = font.render("Dog", 1, (36, 36, 0))
+    labels = [label, label]
+    
      
     # define a variable to control the main loop
     running = True
-    posx = 50
-    posy = 50
+    posx = [50, 175]
+    posy = [150, 76]
+    trackedEntityNum=2
     # main loop
     while running:
         time.sleep(0.1)
-        print (Mic_tuning.direction)
-        image.set_colorkey((255,255,255))
+        #print (Mic_tuning.direction)
+        image[0].set_colorkey((255,255,255))
         screen.blit(bgd_image, (0,0))
-        posx = (math.cos(Mic_tuning.direction) * screen_width/2) + screen_width/2 - 16
-        posy = (math.sin(Mic_tuning.direction) * screen_height/2) + screen_height/2 - 16
-        screen.blit(image, (posx,posy))
+        for N in range(0, trackedEntityNum):
+            posx[N] = posx[N] + random.randint(-3, 3)#(math.cos(Mic_tuning.direction) * screen_width/2) + screen_width/2 - 16
+            posy[N] = posy[N] #(math.sin(Mic_tuning.direction) * screen_height/2) + screen_height/2 - 16
+            screen.blit(image[N], (posx[N],posy[N]))
+            screen.blit(labels[N], (posx[N]-10,posy[N]-20))
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
