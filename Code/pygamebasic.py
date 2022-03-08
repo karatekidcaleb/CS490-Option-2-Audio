@@ -2,13 +2,14 @@ import pygame
 import random
 import time
 from tuning import Tuning
-import usb.core
-import usb.util
+from usb import core
+from usb import util
 import time
 import math
+import os
 
-dev = usb.core.find(idVendor=0x2886, idProduct=0x0018)
-Mic_tuning = Tuning(dev)
+#dev = core.find(idVendor=0x2886, idProduct=0x0018)
+#Mic_tuning = Tuning(dev)
  
 # define a main function
 def main():
@@ -16,6 +17,7 @@ def main():
     # initialize the pygame module
     pygame.init()
     # load and set the logo
+    os.chdir("C:\\Users\\karat\\Documents\\GitHub\\CS490-Option-2-Audio\\Code")
     logo = pygame.image.load("logo32x32.png")
     pygame.display.set_icon(logo)
     pygame.display.set_caption("minimal program")
