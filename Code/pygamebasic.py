@@ -7,8 +7,10 @@ from usb import util
 import time
 import math
 import os
+import sys
 
-#dev = core.find(idVendor=0x2886, idProduct=0x0018)
+
+dev = core.find(idVendor=0x2886, idProduct=0x0018)
 #Mic_tuning = Tuning(dev)
  
 # define a main function
@@ -44,6 +46,7 @@ def main():
         #print (Mic_tuning.direction)
         image[0].set_colorkey((255,255,255))
         screen.blit(bgd_image, (0,0))
+        screen.blit(pygame.image.load("center32x32.png"), (215,223))
         for N in range(0, trackedEntityNum):
             posx[N] = posx[N] + random.randint(-3, 3)#(math.cos(Mic_tuning.direction) * screen_width/2) + screen_width/2 - 16
             posy[N] = posy[N] #(math.sin(Mic_tuning.direction) * screen_height/2) + screen_height/2 - 16
