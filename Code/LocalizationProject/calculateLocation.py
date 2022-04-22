@@ -40,7 +40,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
     #print("distance from top mic is ", distance_from_mic1)
     #print("distance from bottom mic is ", distance_from_mic2)
     
-    if(distance_from_mic1 > 0 or distance_from_mic2 > 0):
+    if(distance_from_mic1 > 0 and distance_from_mic2 > 0):
         
         if inner_angle1 >= 90 and DOA1 > 270:               #if sound is northeast of mic 1 (scenario 1)
             angleD = 180 - inner_angle1                                                                                 # D = 90 - B
@@ -49,7 +49,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceEast = math.sin(math.radians(angleD)) * distance_from_mic1                                          # d = sin(D) * c
             #print("Sound is ", distanceNorth, " meters north and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceNorth)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -60,7 +60,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceWest = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceNorth, " meters north and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceNorth)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -71,7 +71,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -82,7 +82,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -93,7 +93,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -104,7 +104,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
-            print (coordinateString)
+            #print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
