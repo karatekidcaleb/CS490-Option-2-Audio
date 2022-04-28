@@ -118,13 +118,13 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
 def calculate_inner_angle(top_or_bottom, DOA):
     if top_or_bottom == "top":
         if DOA >= 270:                       #if sound is in 4th quadrant
-            return 450 - DOA
+            return DOA - 270
         elif 270 > DOA >= 180:              #if sound is in 3rd quadrant
-            return DOA - 90
+            return 270 -DOA
         elif 180 > DOA >= 90:                #if sound is in 2nd quadrant
-            return DOA - 90
+            return 270 - DOA
         elif 90 > DOA >= 0:                 #if sound is in 1st quadrant
-            return 90 - DOA
+            return DOA + 90
         #elif DOA == 270:
             #return "Angle from top mic is 270: sound is straight up from mic"
         #elif DOA == 90:
@@ -132,13 +132,13 @@ def calculate_inner_angle(top_or_bottom, DOA):
 
     elif top_or_bottom == "bottom":
         if DOA >= 270:                       #if sound is in 4th quadrant
-            return DOA - 270
+            return 450 - DOA
         elif 270 > DOA >= 180:              #if sound is in 3rd quadrant
-            return 270 - DOA
+            return DOA - 90
         elif 180 > DOA >= 90:                #if sound is in 2nd quadrant
-            return 270 - DOA
+            return DOA - 90
         elif 90 > DOA >= 0:                 #if sound is in 1st quadrant
-            return DOA + 90
+            return 90 - DOA
         #elif DOA == 270:
             #return "Angle from bottom mic is 270: sound is straight up from mic"
         #elif DOA == 90:
