@@ -21,6 +21,8 @@ def main():
     # create a surface on screen that has the size of 240 x 240
     screen = pygame.display.set_mode((screen_width,screen_height))
     image = pygame.image.load("logo70x70.png")
+    stockfoto = pygame.image.load("stockMic.png")
+    stockfoto.set_colorkey((255,255,255))
     
      
     # define a variable to control the main loop
@@ -60,6 +62,7 @@ def main():
         #posy = (math.sin(int(lines[1]*0.01745329)) * screen_height/2) + screen_height/2 - 16
         screen.blit(image, (pos[0]+(screen_width/2),pos[1]+(screen_height/2)))
         screen.blit(label, (pos[0]+(screen_width/2),pos[1]+(screen_height/2)))
+        screen.blit(stockfoto, ((screen_width/2)-60, (screen_height/2)-57))
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
