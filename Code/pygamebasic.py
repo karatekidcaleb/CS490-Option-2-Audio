@@ -2,11 +2,10 @@ import py
 import pygame
 import math
 import time
-import hello
+import LocalizationProject.Localization
  
 # define a main function
 def main():
-    hello.numPrinter()
     # initialize the pygame module
     pygame.init()
     # load and set the logo
@@ -41,6 +40,7 @@ def main():
         # render text
         label = myfont.render("Air Conditioning", 1, (255,255,0))
         
+        '''
         try:
             file1 = open('CoordinateOutputs.txt', 'r')
         except IOError:
@@ -54,6 +54,10 @@ def main():
             count += 1
             pos[count-1] = line.strip()
             
+            
+        '''
+        
+        pos = localization()
         print(pos[0])
         print(int(float(pos[0])*50))
         pos[0] = int(float(pos[0])*50)
