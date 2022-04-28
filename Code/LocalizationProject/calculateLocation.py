@@ -49,7 +49,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceEast = math.sin(math.radians(angleD)) * distance_from_mic1                                          # d = sin(D) * c
             #print("Sound is ", distanceNorth, " meters north and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceNorth)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -60,7 +60,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceWest = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceNorth, " meters north and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceNorth)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -71,7 +71,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -82,7 +82,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -93,7 +93,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -104,7 +104,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             distanceSouth = math.sin(math.radians(angleD)) * distance_from_mic1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
-            #print (coordinateString)
+            print (coordinateString)
             with open('CoordinateOutputs.txt', 'w') as f:
                 f.write(coordinateString)
 
@@ -147,16 +147,31 @@ def calculate_inner_angle(top_or_bottom, DOA):
 #It will send output values for location to the text file in intervals of seconds defined by the time.sleep function
 #DOA values for the microphones should be calculated within the while loop
 def loop_localization_calculation():
-    while (1):
+    file1 = open("CoordinateInputs.txt", "r")
+    myline = file1.readline()
+    
+    while myline:
+        chunks = myline.split(',')
+        dist_btw_mics = int(chunks[0])
+        DOA_top = int(chunks[1])
+        DOA_bot = int(chunks[2])
+        calculate_distance(dist_btw_mics, DOA_top, DOA_bot)
+        myline = file1.readline()
+        time.sleep(0.5)
+    #while (1):
         #calculatedDOA1 = TBD: calculate DOA for top microphone and assign it to this variable
         #calculatedDOA2 = TBD: calculate DOA for bottom microphone and assign it to this variable
         
         #input the calculated DOA values and the distance between the mics in the following function call:
         #calculate_distance(distance_btw_mics, calculatedDOA1, calculatedDOA2) 
         
-        time.sleep(5) #calculate a location for sound every 5 seconds (change the number of seconds as you wish)
+     #   time.sleep(5) #calculate a location for sound every 5 seconds (change the number of seconds as you wish)
         
-#loop_localization_calculation()
+loop_localization_calculation()
+
+
+
+
 
 #Testing cases below:
     
@@ -175,10 +190,59 @@ def loop_localization_calculation():
 #print(calculate_inner_angle("bottom", 90))
 
 #calculate_distance(2, 300, 290)               #scenario 1: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 301, 289)               # 8 simulated values for scenario 1
+#calculate_distance(2, 302, 288)
+#calculate_distance(2, 303, 287)
+#calculate_distance(2, 330, 310)
+#calculate_distance(2, 329, 309)
+#calculate_distance(2, 331, 305)
+#calculate_distance(2, 345, 300)
+
 #calculate_distance(2, 30, 330)                #scenario 2: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 31, 320)                # 8 simulated values for scenario 2
+#calculate_distance(2, 33, 315)
+#calculate_distance(2, 35, 310)
+#calculate_distance(2, 45, 330)
+#calculate_distance(2, 42, 306)
+#calculate_distance(2, 24, 340)
+#calculate_distance(2, 20, 290)
+
 #calculate_distance(2, 240, 260)               #scenario 3: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 195, 230)
+#calculate_distance(2, 200, 220)
+#calculate_distance(2, 225, 240)
+#calculate_distance(2, 220, 255)
+#calculate_distance(2, 215, 235)
+#calculate_distance(2, 245, 250)
+#calculate_distance(2, 190, 210)
+
 #calculate_distance(2, 150, 190)               #scenario 4: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 145, 195)
+#calculate_distance(2, 140, 200)  
+#calculate_distance(2, 135, 205)
+#calculate_distance(2, 130, 210)
+#calculate_distance(2, 125, 215)
+#calculate_distance(2, 120, 220)
+#calculate_distance(2, 115, 225)
+     
 #calculate_distance(2, 120, 160)               #scenario 5: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 115, 165)
+#calculate_distance(2, 110, 170)
+#calculate_distance(2, 105, 155)
+#calculate_distance(2, 100, 150)
+#calculate_distance(2, 95, 145)
+#calculate_distance(2, 125, 143)
+#calculate_distance(2, 130, 138)
+
 #calculate_distance(2, 70, 45)                 #scenario 6: all distances (b, c, d, e) check out on calculator, correct output to text file
+#calculate_distance(2, 75, 50)
+#calculate_distance(2, 80, 55)
+#calculate_distance(2, 65, 40)
+#calculate_distance(2, 60, 35)
+#calculate_distance(2, 55, 30)
+#calculate_distance(2, 50, 25)
+#calculate_distance(2, 45, 20)
+
+
 #calculate_distance(2, 240, 220)               #invalid DOA values, causes lines to diverge and never intersect, results in negative distance values                
 #calculate_distance(2, 110, 100)               #invalid DOA values, causes lines to diverge and never intersect, results in negative distance values (maybe we just don't show results if they are negative)
