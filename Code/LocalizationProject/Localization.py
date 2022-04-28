@@ -20,7 +20,7 @@ def localization():
         #print (Mic_tuning_1.direction)
         x, y = calculateLocation.calculate_distance(6, Mic_tuning_0.direction, Mic_tuning_1.direction)
         #print(x,y)
-        return (x, y)
+        #return (x, y)
 
 """
         while True:
@@ -35,5 +35,4 @@ def localization():
             except KeyboardInterrupt:
                 break
 """
-
 #localization()
