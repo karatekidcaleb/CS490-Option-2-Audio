@@ -39,10 +39,11 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
 
     #print("distance from top mic is ", distance_from_mic1)
     #print("distance from bottom mic is ", distance_from_mic2)
-    
+    x = 0
+    y = 0
     if(distance_from_mic1 > 0 and distance_from_mic2 > 0):
         
-        if inner_angle1 >= 90 and DOA1 > 270:               #if sound is northeast of mic 1 (scenario 1)
+        if inner_angle1 >= 90 and DOA1 < 90:               #if sound is northeast of mic 1 (scenario 1)
             angleD = 180 - inner_angle1                                                                                 # D = 90 - B
             angleE = 180 - 90 - angleD                                                                                  # E = 180 - 90 - D
             y = math.sin(math.radians(angleE)) * distance_from_mic1                                         # e = sin(E) * c
@@ -53,7 +54,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 >= 90 and 270 > DOA1 >= 180:       #if sound is northwest of mic 1 (scenario 3)  
+        elif inner_angle1 >= 90 and 180 >= DOA1 >= 90:       #if sound is northwest of mic 1 (scenario 3)
             angleD = 180 - inner_angle1
             angleE = 180 - 90 - angleD
             y = math.sin(math.radians(angleE)) * distance_from_mic1
@@ -64,7 +65,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 < 90:       #if sound is southeast of mic 1 and northeast of mic 2 (scenario 2)
+        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 > 270:       #if sound is southeast of mic 1 and northeast of mic 2 (scenario 2)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
@@ -75,7 +76,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 > 90:       #if sound is southwest of mic 1 and northwest of mic 2 (scenario 4)
+        elif inner_angle1 < 90 and inner_angle2 < 90 and 270 >= DOA1 > 180:       #if sound is southwest of mic 1 and northwest of mic 2 (scenario 4)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
@@ -86,7 +87,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle2 >= 90 and DOA1 > 90:                          #if sound is southwest of mic 2 (scenario 5)
+        elif inner_angle2 >= 90 and 270 >= DOA1 >180:                          #if sound is southwest of mic 2 (scenario 5)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
@@ -97,7 +98,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle2 >= 90 and DOA1 < 90:                          #if sound is southeast of mic 2 (scenario 6)
+        elif inner_angle2 >= 90 and DOA1 > 270:                          #if sound is southeast of mic 2 (scenario 6)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
@@ -109,7 +110,7 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
                 #f.write(coordinateString)
         return (x, y)
     else:
-        return (0,0)
+        return (x, y)
 
 
 #This function calculates the inner angle for a mic given the DOA that is taken from it.
