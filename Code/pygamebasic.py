@@ -1,57 +1,59 @@
+import py
 import pygame
-import random
-import time
-from tuning import Tuning
-from usb import core
-from usb import util
-import time
 import math
-import os
-import sys
-
-
-dev = core.find(idVendor=0x2886, idProduct=0x0018)
-#Mic_tuning = Tuning(dev)
+import time
+import hello
  
 # define a main function
 def main():
-     
+    hello.numPrinter()
     # initialize the pygame module
     pygame.init()
     # load and set the logo
-    os.chdir("C:\\Users\\karat\\Documents\\GitHub\\CS490-Option-2-Audio\\Code")
-    logo = pygame.image.load("logo32x32.png")
+    logo = pygame.image.load("logo70x70.png")
     pygame.display.set_icon(logo)
     pygame.display.set_caption("minimal program")
     bgd_image = pygame.image.load("bgd_image.png")
      
-    screen_width = 480
-    screen_height = 480
+    screen_width = 720
+    screen_height = 720
+    bgd_image = pygame.transform.scale(bgd_image, (screen_width, screen_height))
     # create a surface on screen that has the size of 240 x 240
     screen = pygame.display.set_mode((screen_width,screen_height))
-    image = [pygame.image.load("logo32x32.png"), pygame.image.load("logo32x32.png")]
-    font = pygame.font.SysFont("monospace", 20)
-    label = font.render("Dog", 1, (36, 36, 0))
-    labels = [label, label]
+    image = pygame.image.load("logo70x70.png")
     
      
     # define a variable to control the main loop
     running = True
-    posx = [50, 175]
-    posy = [150, 76]
-    trackedEntityNum=2
+    pos = [0,0]
+    
+        
     # main loop
     while running:
-        time.sleep(0.1)
-        #print (Mic_tuning.direction)
-        image[0].set_colorkey((255,255,255))
+        image.set_colorkey((255,255,255))
         screen.blit(bgd_image, (0,0))
-        screen.blit(pygame.image.load("center32x32.png"), (215,223))
-        for N in range(0, trackedEntityNum):
-            posx[N] = posx[N] + random.randint(-3, 3)#(math.cos(Mic_tuning.direction) * screen_width/2) + screen_width/2 - 16
-            posy[N] = posy[N] #(math.sin(Mic_tuning.direction) * screen_height/2) + screen_height/2 - 16
-            screen.blit(image[N], (posx[N],posy[N]))
-            screen.blit(labels[N], (posx[N]-10,posy[N]-20))
+        time.sleep(0.1)
+        
+        try:
+            file1 = open('CoordinateOutputs.txt', 'r')
+        except IOError:
+            print("File has opened already.")
+        Lines = file1.readlines()
+        file1.close()
+ 
+        count = 0
+        # Strips the newline character
+        for line in Lines:
+            count += 1
+            pos[count-1] = line.strip()
+            
+        print(pos[0])
+        print(int(float(pos[0])*50))
+        pos[0] = int(float(pos[0])*50)
+        pos[1] = int(float(pos[1])*50)
+        #posx = (int(lines[0])*0.01745329) * screen_width/2 + screen_width/2 - 16
+        #posy = (math.sin(int(lines[1]*0.01745329)) * screen_height/2) + screen_height/2 - 16
+        screen.blit(image, (pos[0]+(screen_width/2),pos[1]+(screen_height/2)))
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
