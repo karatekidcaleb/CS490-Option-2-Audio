@@ -34,6 +34,11 @@ def main():
         screen.blit(bgd_image, (0,0))
         time.sleep(0.1)
         
+        myfont = pygame.font.SysFont("monospace", 15)
+
+        # render text
+        label = myfont.render("Air Conditioning", 1, (255,255,0))
+        
         try:
             file1 = open('CoordinateOutputs.txt', 'r')
         except IOError:
@@ -54,6 +59,7 @@ def main():
         #posx = (int(lines[0])*0.01745329) * screen_width/2 + screen_width/2 - 16
         #posy = (math.sin(int(lines[1]*0.01745329)) * screen_height/2) + screen_height/2 - 16
         screen.blit(image, (pos[0]+(screen_width/2),pos[1]+(screen_height/2)))
+        screen.blit(label, (pos[0]+(screen_width/2),pos[1]+(screen_height/2)))
         # event handling, gets all event from the event queue
         for event in pygame.event.get():
             # only do something if the event is of type QUIT
