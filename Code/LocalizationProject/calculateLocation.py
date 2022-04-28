@@ -22,27 +22,32 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
     #If valid DOA values are inputted, function will output the calculated coordinate to the text file named 'CoordinateOutputs.txt'
     #(Uncomment all print statements below to see how the function progresses through calculations)
 
+    x = 0
+    y = 0
     
     #print("DOA of top microphone is:", DOA1, "- DOA of bottom microphone is:", DOA2)
 
-    inner_angle1 = calculate_inner_angle("top", DOA1)
-    #print("inner angle top mic is: ", inner_angle1)
+    if (DOA1 != DOA2):
+        inner_angle1 = calculate_inner_angle("top", DOA1)
+        #print("inner angle top mic is: ", inner_angle1)
 
-    inner_angle2 = calculate_inner_angle("bottom", DOA2)
-    #print("inner angle bottom mic is: ", inner_angle2)
+        inner_angle2 = calculate_inner_angle("bottom", DOA2)
+        #print("inner angle bottom mic is: ", inner_angle2)
 
-    outer_angle = 180 - inner_angle1 - inner_angle2
-    #print("outer angle is: ", outer_angle)
+        outer_angle = 180 - inner_angle1 - inner_angle2
+        #print("outer angle is: ", outer_angle)
 
-    distance_from_mic1 = (distance_btw_mics * math.sin(math.radians(inner_angle2))) / math.sin(math.radians(outer_angle))
-    distance_from_mic2 = (distance_btw_mics * math.sin(math.radians(inner_angle1))) / math.sin(math.radians(outer_angle))
+        distance_from_mic1 = (distance_btw_mics * math.sin(math.radians(inner_angle2))) / math.sin(math.radians(outer_angle))
+        distance_from_mic2 = (distance_btw_mics * math.sin(math.radians(inner_angle1))) / math.sin(math.radians(outer_angle))
+    else:
+        #print('ERROR PARALLEL DOA ERROR')
+        return (x, y)
 
     #print("distance from top mic is ", distance_from_mic1)
-    #print("distance from bottom mic is ", distance_from_mic2)
-    
+    #print("distance from bottom mic is ", distance_from_mic2
     if(distance_from_mic1 > 0 and distance_from_mic2 > 0):
         
-        if inner_angle1 >= 90 and DOA1 > 270:               #if sound is northeast of mic 1 (scenario 1)
+        if inner_angle1 >= 90 and DOA1 < 90:               #if sound is northeast of mic 1 (scenario 1)
             angleD = 180 - inner_angle1                                                                                 # D = 90 - B
             angleE = 180 - 90 - angleD                                                                                  # E = 180 - 90 - D
             y = math.sin(math.radians(angleE)) * distance_from_mic1                                         # e = sin(E) * c
@@ -53,55 +58,55 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 >= 90 and 270 > DOA1 >= 180:       #if sound is northwest of mic 1 (scenario 3)  
+        elif inner_angle1 >= 90 and 180 >= DOA1 >= 90:       #if sound is northwest of mic 1 (scenario 3)
             angleD = 180 - inner_angle1
             angleE = 180 - 90 - angleD
             y = math.sin(math.radians(angleE)) * distance_from_mic1
-            x = math.sin(math.radians(angleD)) * distance_from_mic1
+            x = math.sin(math.radians(angleD)) * distance_from_mic1 * -1
             #print("Sound is ", distanceNorth, " meters north and ", distanceWest, " meters west of Mic 1\n")
             #coordinateString = str(distanceWest * -1) + ', ' + str(distanceNorth)
             #print (coordinateString)
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 < 90:       #if sound is southeast of mic 1 and northeast of mic 2 (scenario 2)
+        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 > 270:       #if sound is southeast of mic 1 and northeast of mic 2 (scenario 2)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
-            y = math.sin(math.radians(angleD)) * distance_from_mic1
+            y = math.sin(math.radians(angleD)) * distance_from_mic1 * -1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             #coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
             #print (coordinateString)
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle1 < 90 and inner_angle2 < 90 and DOA1 > 90:       #if sound is southwest of mic 1 and northwest of mic 2 (scenario 4)
+        elif inner_angle1 < 90 and inner_angle2 < 90 and 270 >= DOA1 > 180:       #if sound is southwest of mic 1 and northwest of mic 2 (scenario 4)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
-            x = math.sin(math.radians(angleE)) * distance_from_mic1
-            y = math.sin(math.radians(angleD)) * distance_from_mic1
+            x = math.sin(math.radians(angleE)) * distance_from_mic1 * -1
+            y = math.sin(math.radians(angleD)) * distance_from_mic1 * -1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             #coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
             #print (coordinateString)
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle2 >= 90 and DOA1 > 90:                          #if sound is southwest of mic 2 (scenario 5)
+        elif inner_angle2 >= 90 and 270 >= DOA1 >180:                          #if sound is southwest of mic 2 (scenario 5)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
-            x = math.sin(math.radians(angleE)) * distance_from_mic1
-            y = math.sin(math.radians(angleD)) * distance_from_mic1
+            x = math.sin(math.radians(angleE)) * distance_from_mic1 * -1
+            y = math.sin(math.radians(angleD)) * distance_from_mic1 * -1
             #print("Sound is ", distanceSouth, " meters south and ", distanceWest, " meters west of Mic 1\n")
             #coordinateString = str(distanceWest * -1) + ', ' + str(distanceSouth * -1)
             #print (coordinateString)
             #with open('CoordinateOutputs.txt', 'w') as f:
                 #f.write(coordinateString)
 
-        elif inner_angle2 >= 90 and DOA1 < 90:                          #if sound is southeast of mic 2 (scenario 6)
+        elif inner_angle2 >= 90 and DOA1 > 270:                          #if sound is southeast of mic 2 (scenario 6)
             angleD = 90 - inner_angle1
             angleE = 180 - 90 - angleD
             x = math.sin(math.radians(angleE)) * distance_from_mic1
-            y = math.sin(math.radians(angleD)) * distance_from_mic1
+            y = math.sin(math.radians(angleD)) * distance_from_mic1 * -1
             #print("Sound is ", distanceSouth, " meters south and ", distanceEast, " meters east of Mic 1\n")
             #coordinateString = str(distanceEast) + ', ' + str(distanceSouth * -1)
             #print (coordinateString)
@@ -109,7 +114,8 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
                 #f.write(coordinateString)
         return (x, y)
     else:
-        return (0,0)
+        #print("ERROR Missing Edge Case ERROR")
+        return (x, y)
 
 
 #This function calculates the inner angle for a mic given the DOA that is taken from it.
@@ -118,13 +124,13 @@ def calculate_distance(distance_btw_mics, DOA1, DOA2):
 def calculate_inner_angle(top_or_bottom, DOA):
     if top_or_bottom == "top":
         if DOA >= 270:                       #if sound is in 4th quadrant
-            return 450 - DOA
+            return DOA - 270
         elif 270 > DOA >= 180:              #if sound is in 3rd quadrant
-            return DOA - 90
+            return 270 -DOA
         elif 180 > DOA >= 90:                #if sound is in 2nd quadrant
-            return DOA - 90
+            return 270 - DOA
         elif 90 > DOA >= 0:                 #if sound is in 1st quadrant
-            return 90 - DOA
+            return DOA + 90
         #elif DOA == 270:
             #return "Angle from top mic is 270: sound is straight up from mic"
         #elif DOA == 90:
@@ -132,13 +138,13 @@ def calculate_inner_angle(top_or_bottom, DOA):
 
     elif top_or_bottom == "bottom":
         if DOA >= 270:                       #if sound is in 4th quadrant
-            return DOA - 270
+            return 450 - DOA
         elif 270 > DOA >= 180:              #if sound is in 3rd quadrant
-            return 270 - DOA
+            return DOA - 90
         elif 180 > DOA >= 90:                #if sound is in 2nd quadrant
-            return 270 - DOA
+            return DOA - 90
         elif 90 > DOA >= 0:                 #if sound is in 1st quadrant
-            return DOA + 90
+            return 90 - DOA
         #elif DOA == 270:
             #return "Angle from bottom mic is 270: sound is straight up from mic"
         #elif DOA == 90:
